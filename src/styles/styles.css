@@ -1,0 +1,17 @@
+@import "~normalize.css";
+@import "lato.css";
+
+body {
+  font-family: Lato, sans-serif;
+}
+
+.container {
+  background-color: rgb(238, 229, 217);
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  background: url(../assets/batman.jpg);
+  background-size: cover;
+}
