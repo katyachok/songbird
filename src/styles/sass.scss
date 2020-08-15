@@ -1,3 +1,19 @@
-.container {
-  color: red;
+$base-color: #008966;
+$active-link: #00bc8c;
+$background: #222222;
+$blocks-background: #303030;
+
+body {
+  background-color: $background;
+}
+
+main {
+  max-width: 1140px;
+  margin: auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
 }

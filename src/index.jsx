@@ -1,20 +1,27 @@
 import React from "react";
 import ReactDom from "react-dom";
-// import { hot } from "react-hot-loader";
-
-// import "core-js/stable";
-// import "regenerator-runtime/runtime";
-
+import { Header } from "./components/Header";
+import { Question } from "./components/Question";
+import { Answers } from "./components/Answers";
+import { Description } from "./components/Description";
+import { NextLevelButton } from "./components/NextLevelButton";
 import "./styles/styles.css";
 import "./styles/sass.scss";
 
-console.log("HII");
-
 const App = () => {
-  return <div>Hello</div>;
+  return (
+    <>
+      <Header></Header>
+      <main>
+        <Question birdName="*****"></Question>
+        <div className="content">
+          <Answers></Answers>
+          <Description></Description>
+        </div>
+        <NextLevelButton></NextLevelButton>
+      </main>
+    </>
+  );
 };
 
-// const AppWithHot = hot(module)(App);
-
-const mountNode = document.getElementById("app");
-ReactDom.render(<App></App>, mountNode);
+ReactDom.render(<App></App>, document.getElementById("app"));
