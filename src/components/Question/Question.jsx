@@ -1,11 +1,12 @@
 import React from "react";
 import { Player } from "../Player";
+import defaultPhoto from "../../assets/defaultBird.jpg";
 import styled from "styled-components";
 
 const Question = ({ birdName }) => {
   return (
     <Container>
-      <Image></Image>
+      <Image src={defaultPhoto}></Image>
       <Column>
         <Title>{birdName}</Title>
         <Player></Player>
