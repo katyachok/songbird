@@ -77,6 +77,7 @@ const Image = styled.img`
 
 const Text = styled.p`
   margin-top: 0;
+  margin-bottom: 0;
   padding: 0.25rem;
   font-size: 1rem;
   line-height: 22.5px;
