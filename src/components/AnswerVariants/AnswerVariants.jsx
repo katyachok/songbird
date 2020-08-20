@@ -3,13 +3,13 @@ import { birds } from "../../constants";
 import { Answer } from "./Answer";
 import styled from "styled-components";
 
-const AnswerVariants = ({ correctAnswer, setActiveAnswer }) => {
+const AnswerVariants = ({ currentPage, correctAnswer, setActiveAnswer }) => {
   return (
     <List>
-      {birds.training.map((bird) => (
+      {birds[currentPage].map((bird) => (
         <Answer
-          key={bird.name}
           bird={bird}
+          key={bird.name}
           correctAnswer={correctAnswer}
           setActiveAnswer={setActiveAnswer}
         />

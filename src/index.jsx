@@ -5,14 +5,14 @@ import { Question } from "./components/Question";
 import { AnswerVariants } from "./components/AnswerVariants";
 import { Description } from "./components/Description";
 import { NextLevelButton } from "./components/NextLevelButton";
-import { flickrAPI } from "./constants";
+import { flickrAPI, pages } from "./constants";
 import "./styles/styles.css";
 import "./styles/sass.scss";
 
 const App = () => {
   const [correctAnswer, setCorrectAnswer] = useState("Коростель");
   const [activeAnswer, setActiveAnswer] = useState(null);
-  const [currentPage, setCurrentPage] = useState("training");
+  const [currentPage, setCurrentPage] = useState(0);
   const [correctAnswerPhoto, setCorrectAnswerPhoto] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <>
-      <Header currentPage={currentPage}></Header>
+      <Header currentPage={pages[currentPage]}></Header>
       <main>
         <Question
           correctAnswer={correctAnswer}
@@ -35,6 +35,7 @@ const App = () => {
         ></Question>
         <div className="content">
           <AnswerVariants
+            currentPage={currentPage}
             correctAnswer={correctAnswer}
             setActiveAnswer={setActiveAnswer}
           ></AnswerVariants>
@@ -44,7 +45,10 @@ const App = () => {
             page={currentPage}
           ></Description>
         </div>
-        <NextLevelButton setPage={setCurrentPage}></NextLevelButton>
+        <NextLevelButton
+          setPage={() => setCurrentPage((prevPage) => prevPage + 1)}
+          enableButton={correctAnswer === activeAnswer}
+        ></NextLevelButton>
       </main>
     </>
   );

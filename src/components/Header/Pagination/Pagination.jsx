@@ -6,9 +6,9 @@ const Pagination = ({ currentPage }) => {
   console.log(currentPage);
   return (
     <Container>
-      {Object.keys(pages).map((page) => (
+      {pages.map((page) => (
         <Page key={page} isCurrentPage={page === currentPage}>
-          {pages[page]}
+          {page}
         </Page>
       ))}
     </Container>
