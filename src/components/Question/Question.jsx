@@ -3,12 +3,18 @@ import { Player } from "../Player";
 import defaultPhoto from "../../assets/defaultBird.jpg";
 import styled from "styled-components";
 
-const Question = ({ birdName }) => {
+const Question = ({ correctAnswer, activeAnswer, correctAnswerPhoto }) => {
   return (
     <Container>
-      <Image src={defaultPhoto}></Image>
+      <Image
+        src={
+          correctAnswer === activeAnswer
+            ? correctAnswerPhoto.url_m
+            : defaultPhoto
+        }
+      ></Image>
       <Column>
-        <Title>{birdName}</Title>
+        <Title>{correctAnswer === activeAnswer ? correctAnswer : "***"}</Title>
         <Player></Player>
       </Column>
     </Container>
