@@ -12,7 +12,7 @@ import "./styles/sass.scss";
 const App = () => {
   const [correctAnswer, setCorrectAnswer] = useState("Коростель");
   const [activeAnswer, setActiveAnswer] = useState(null);
-  const [page, setPage] = useState("training");
+  const [currentPage, setCurrentPage] = useState("training");
   const [correctAnswerPhoto, setCorrectAnswerPhoto] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header currentPage={currentPage}></Header>
       <main>
         <Question
           correctAnswer={correctAnswer}
@@ -41,10 +41,10 @@ const App = () => {
           <Description
             correctAnswer={correctAnswer}
             activeAnswer={activeAnswer}
-            page={page}
+            page={currentPage}
           ></Description>
         </div>
-        <NextLevelButton setPage={setPage}></NextLevelButton>
+        <NextLevelButton setPage={setCurrentPage}></NextLevelButton>
       </main>
     </>
   );

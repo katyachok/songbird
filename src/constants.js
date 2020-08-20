@@ -1,12 +1,12 @@
 import { API_KEY } from "../secret";
-export const pages = [
-  "Разминка",
-  "Воробьиные",
-  "Лесные птицы",
-  "Певчие",
-  "Хищные",
-  "Морские",
-];
+export const pages = {
+  training: "Разминка",
+  sparrow: "Воробьиные",
+  forest: "Лесные птицы",
+  singing: "Певчие",
+  predators: "Хищные",
+  sea: "Морские",
+};
 
 export const birds = {
   training: [

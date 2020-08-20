@@ -2,11 +2,14 @@ import React from "react";
 import { pages } from "../../../constants";
 import styled from "styled-components";
 
-const Pagination = () => {
+const Pagination = ({ currentPage }) => {
+  console.log(currentPage);
   return (
     <Container>
-      {pages.map((page) => (
-        <Page key={page}>{page}</Page>
+      {Object.keys(pages).map((page) => (
+        <Page key={page} isCurrentPage={page === currentPage}>
+          {pages[page]}
+        </Page>
       ))}
     </Container>
   );
@@ -26,8 +29,10 @@ const Container = styled.ul`
 
 const Page = styled.li`
   padding: 0.5rem 0.75rem;
+  text-align: center;
   list-style-type: none;
   line-height: 1.25;
   color: #fff;
-  background-color: #008966;
+  background-color: ${({ isCurrentPage }) =>
+    isCurrentPage ? "#00bc8c" : "#008966"};
 `;

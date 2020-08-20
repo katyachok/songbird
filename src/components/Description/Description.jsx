@@ -12,7 +12,6 @@ const Description = ({ activeAnswer, correctAnswer, page }) => {
     async function fetchData() {
       const response = await fetch(`${flickrAPI}${activeAnswer}`);
       const data = await response.json();
-      console.log(data);
       setPhoto(data.photos.photo[0]);
       const birdData = birds[page].filter(({ name }) => name === activeAnswer);
       console.log(birdData);
@@ -21,7 +20,6 @@ const Description = ({ activeAnswer, correctAnswer, page }) => {
     fetchData();
   }, [activeAnswer]);
 
-  console.log(bird);
   return (
     <Container>
       {!activeAnswer && (

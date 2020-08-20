@@ -2,14 +2,14 @@ import React from "react";
 import { Pagination } from "./Pagination";
 import styled from "styled-components";
 
-const Header = ({ score = 0 }) => {
+const Header = ({ score = 0, currentPage }) => {
   return (
     <HeaderContainer>
       <HeaderTop>
         <Title>SongBird</Title>
         <Score>Score: {score}</Score>
       </HeaderTop>
-      <Pagination></Pagination>
+      <Pagination currentPage={currentPage}></Pagination>
     </HeaderContainer>
   );
 };
