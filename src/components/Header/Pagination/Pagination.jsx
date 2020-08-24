@@ -3,7 +3,6 @@ import { pages } from "../../../constants";
 import styled from "styled-components";
 
 const Pagination = ({ currentPage }) => {
-  console.log(currentPage);
   return (
     <Container>
       {pages.map((page) => (

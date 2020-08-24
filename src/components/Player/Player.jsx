@@ -1,7 +1,7 @@
 import React from "react";
 
-const Player = () => {
-  return <div>player</div>;
+const Player = ({ src }) => {
+  return <audio src={src} controls></audio>;
 };
 
 export { Player };

@@ -1,4 +1,5 @@
 import { API_KEY } from "../secret";
+export const VOICE_API = "https://www.xeno-canto.org/api/2/recordings?query=";
 export const pages = [
   "Разминка",
   "Воробьиные",

@@ -3,7 +3,7 @@ import { Player } from "../Player";
 import defaultPhoto from "../../assets/defaultBird.jpg";
 import styled from "styled-components";
 
-const Question = ({ correctAnswer, activeAnswer, correctAnswerPhoto }) => {
+const Question = ({ src, correctAnswer, activeAnswer, correctAnswerPhoto }) => {
   return (
     <Container>
       <Image
@@ -15,7 +15,7 @@ const Question = ({ correctAnswer, activeAnswer, correctAnswerPhoto }) => {
       ></Image>
       <Column>
         <Title>{correctAnswer === activeAnswer ? correctAnswer : "***"}</Title>
-        <Player></Player>
+        <Player src={src}></Player>
       </Column>
     </Container>
   );
