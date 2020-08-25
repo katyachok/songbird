@@ -26,6 +26,7 @@ export { Question };
 const Container = styled.section`
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-gap: 2rem;
   margin-bottom: 2rem;
   padding: 2rem 1rem;
   background-color: #303030;

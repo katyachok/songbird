@@ -5,7 +5,7 @@ import { Question } from "./components/Question";
 import { AnswerVariants } from "./components/AnswerVariants";
 import { Description } from "./components/Description";
 import { NextLevelButton } from "./components/NextLevelButton";
-import { flickrAPI, pages, VOICE_API, birds } from "./constants";
+import { flickrAPI, pages, VOICE_API, birds, PROXY_URL } from "./constants";
 import { randomize } from "./utils/randomize";
 import "./styles/styles.css";
 import "./styles/sass.scss";
@@ -27,20 +27,10 @@ const App = () => {
       setCorrectAnswerPhoto(data.photos.photo[0]);
     }
     async function fetchVoice({ species }) {
-      console.log(`${VOICE_API}${species}`);
-      const voiceResponse = await fetch(`${VOICE_API}${species}`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        // redirect: "follow", // manual, *follow, error
-        // referrerPolicy: "no-referrer", // no-referrer, *client
-        // body: JSON.stringify(data), // body data type must match "Content-Type" header
-      }).then((response) => console.log("voiceRespons222e", response));
-      // const voiceData = await voiceResponse.json();
-      // setCorrectAnswerVoice(voiceData);
-
-      console.log("voiceResponse", voiceResponse);
+      const targetUrl = `${VOICE_API}${species}`;
+      const voiceResponse = await fetch(PROXY_URL + targetUrl);
+      const data = await voiceResponse.json();
+      setCorrectAnswerVoice(data.recordings[0]);
     }
     fetchPhoto(answer);
     fetchVoice(answer);
@@ -54,10 +44,10 @@ const App = () => {
   return (
     <>
       <Header currentPage={pages[currentPage]}></Header>
-      {correctAnswer && (
+      {correctAnswer && correctAnswerVoice && (
         <main>
           <Question
-            src={correctAnswerVoice}
+            src={correctAnswerVoice.file}
             correctAnswer={correctAnswer.name}
             activeAnswer={activeAnswer}
             correctAnswerPhoto={correctAnswerPhoto}
