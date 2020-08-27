@@ -47,7 +47,7 @@ const App = () => {
       {correctAnswer && correctAnswerVoice && (
         <main>
           <Question
-            src={correctAnswerVoice.file}
+            correctAnswerVoice={correctAnswerVoice}
             correctAnswer={correctAnswer.name}
             activeAnswer={activeAnswer}
             correctAnswerPhoto={correctAnswerPhoto}
