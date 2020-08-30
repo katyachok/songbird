@@ -38,6 +38,7 @@ const ProgressBar = ({
 export { ProgressBar };
 
 const BarContainer = styled.div`
+  width: 100%;
   position: relative;
   margin-top: 12px;
   user-select: none;

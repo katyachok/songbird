@@ -7,3 +7,9 @@ export const durationToSeconds = (str) => {
     } else return (acc += +item);
   }, 0);
 };
+
+export const formatDuration = (millis) => {
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+};
