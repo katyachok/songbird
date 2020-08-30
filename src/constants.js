@@ -243,3 +243,4 @@ export const birds = {
 };
 
 export const flickrAPI = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&tag_mode=all&extras=url_m&format=json&nojsoncallback=1&tags=`;
+export const maxScore = 30;

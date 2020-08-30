@@ -5,6 +5,7 @@ import { Question } from "./components/Question";
 import { AnswerVariants } from "./components/AnswerVariants";
 import { Description } from "./components/Description";
 import { NextLevelButton } from "./components/NextLevelButton";
+import { FinalPage } from "./components/FinalPage";
 import { flickrAPI, pages, VOICE_API, birds, PROXY_URL } from "./constants";
 import { randomize } from "./utils/randomize";
 import "./styles/styles.css";
@@ -16,11 +17,24 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [correctAnswerPhoto, setCorrectAnswerPhoto] = useState(null);
   const [correctAnswerVoice, setCorrectAnswerVoice] = useState(null);
+  const [correctAnswersList, setCorrectAnswersList] = useState([]);
+  const [isFinish, setIsFinish] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
+    if (currentPage === Object.keys(birds).length) {
+      setIsFinish(true);
+      console.log("Correct answers: ", correctAnswersList);
+    } else {
+      getData();
+    }
+  }, [currentPage]);
+
+  const getData = async () => {
     const randomNumber = randomize(birds[currentPage].length);
     const answer = birds[currentPage][randomNumber];
     setCorrectAnswer(answer);
+    setCorrectAnswersList([...correctAnswersList, answer]);
     async function fetchPhoto({ name }) {
       const response = await fetch(`${flickrAPI}${name}`);
       const data = await response.json();
@@ -34,42 +48,56 @@ const App = () => {
     }
     fetchPhoto(answer);
     fetchVoice(answer);
-  }, [currentPage]);
+  };
 
   useEffect(() => {
     console.log("birds[currentPage][randomNumber]", correctAnswer);
     if (!correctAnswer) return;
   }, [correctAnswer]);
 
+  const handleNextLevel = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const resetGame = () => {
+    setCurrentPage(0);
+    setIsFinish(false);
+  };
+
   return (
     <>
-      <Header currentPage={pages[currentPage]}></Header>
-      {correctAnswer && correctAnswerVoice && (
-        <main>
-          <Question
-            activeAnswer={activeAnswer}
-            correctAnswer={correctAnswer.name}
-            correctAnswerVoice={correctAnswerVoice}
-            correctAnswerPhoto={correctAnswerPhoto}
-          ></Question>
-          <div className="content">
-            <AnswerVariants
-              currentPage={currentPage}
-              correctAnswer={correctAnswer.name}
-              setActiveAnswer={setActiveAnswer}
-            ></AnswerVariants>
-            <Description
-              page={currentPage}
+      <Header currentPage={pages[currentPage]} score={score}></Header>
+      <main>
+        {correctAnswer && correctAnswerVoice && !isFinish && (
+          <>
+            <Question
               activeAnswer={activeAnswer}
+              correctAnswer={correctAnswer.name}
               correctAnswerVoice={correctAnswerVoice}
-            ></Description>
-          </div>
-          <NextLevelButton
-            setPage={() => setCurrentPage((prevPage) => prevPage + 1)}
-            enableButton={correctAnswer.name === activeAnswer}
-          ></NextLevelButton>
-        </main>
-      )}
+              correctAnswerPhoto={correctAnswerPhoto}
+            ></Question>
+            <div className="content">
+              <AnswerVariants
+                currentPage={currentPage}
+                correctAnswer={correctAnswer.name}
+                setActiveAnswer={setActiveAnswer}
+              ></AnswerVariants>
+              <Description
+                page={currentPage}
+                activeAnswer={activeAnswer}
+                correctAnswerVoice={correctAnswerVoice}
+              ></Description>
+            </div>
+            <NextLevelButton
+              setPage={handleNextLevel}
+              enableButton={correctAnswer.name === activeAnswer}
+            ></NextLevelButton>
+          </>
+        )}
+        {isFinish && (
+          <FinalPage score={score} resetGame={resetGame}></FinalPage>
+        )}
+      </main>
     </>
   );
 };
