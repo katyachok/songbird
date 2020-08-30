@@ -73,7 +73,10 @@ const Player = ({ src, duration }) => {
 export { Player };
 
 const Controls = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-gap: 1rem;
+  align-items: center;
   width: 100%;
   height: 8.097%;
   position: relative;

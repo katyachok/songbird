@@ -1,12 +1,13 @@
 import React from "react";
 import { Pagination } from "./Pagination";
+import LogoSvg from "../../assets/logo.svg";
 import styled from "styled-components";
 
 const Header = ({ score = 0, currentPage }) => {
   return (
     <HeaderContainer>
       <HeaderTop>
-        <Title>SongBird</Title>
+        <Logo src={LogoSvg} alt="logo"></Logo>
         <Score>Score: {score}</Score>
       </HeaderTop>
       <Pagination currentPage={currentPage}></Pagination>
@@ -17,8 +18,16 @@ const Header = ({ score = 0, currentPage }) => {
 export { Header };
 
 const HeaderContainer = styled.header`
-  margin: auto;
-  max-width: 1140px;
+  margin: 0.5rem auto 0;
+  max-width: 720px;
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
 `;
 
 const HeaderTop = styled.div`
@@ -26,9 +35,11 @@ const HeaderTop = styled.div`
   align-items: center;
 `;
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  color: $base-color;
+const Logo = styled.img`
+  width: 200px;
+  height: 55px;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const Score = styled.span`

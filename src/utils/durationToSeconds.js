@@ -1,4 +1,5 @@
 export const durationToSeconds = (str) => {
+  if (!str) return;
   const dates = str.split(":");
   return dates.reduce((acc, item, index) => {
     if (index === 0) {

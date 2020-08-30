@@ -47,9 +47,9 @@ const App = () => {
       {correctAnswer && correctAnswerVoice && (
         <main>
           <Question
-            correctAnswerVoice={correctAnswerVoice}
-            correctAnswer={correctAnswer.name}
             activeAnswer={activeAnswer}
+            correctAnswer={correctAnswer.name}
+            correctAnswerVoice={correctAnswerVoice}
             correctAnswerPhoto={correctAnswerPhoto}
           ></Question>
           <div className="content">
@@ -59,9 +59,9 @@ const App = () => {
               setActiveAnswer={setActiveAnswer}
             ></AnswerVariants>
             <Description
-              correctAnswer={correctAnswer.name}
-              activeAnswer={activeAnswer}
               page={currentPage}
+              activeAnswer={activeAnswer}
+              correctAnswerVoice={correctAnswerVoice}
             ></Description>
           </div>
           <NextLevelButton

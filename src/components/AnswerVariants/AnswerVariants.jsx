@@ -23,6 +23,7 @@ export { AnswerVariants };
 const List = styled.ul`
   margin: 0;
   padding: 0;
+  max-height: 280px;
   list-style-type: none;
   border-radius: 0.25rem;
   border: 1px solid #555;

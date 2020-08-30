@@ -18,12 +18,19 @@ export { Pagination };
 
 const Container = styled.ul`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  max-width: 1140px;
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: 25px;
   padding: 0;
   border-radius: 5px;
   overflow: hidden;
+
+  @media (min-width: 414px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 `;
 
 const Page = styled.li`

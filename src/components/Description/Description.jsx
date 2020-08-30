@@ -4,7 +4,7 @@ import { flickrAPI } from "../../constants";
 import { birds } from "../../constants";
 import styled from "styled-components";
 
-const Description = ({ activeAnswer, correctAnswer, page }) => {
+const Description = ({ activeAnswer, correctAnswerVoice, page }) => {
   const [photo, setPhoto] = useState(null);
   const [bird, setBird] = useState(null);
 
@@ -39,7 +39,10 @@ const Description = ({ activeAnswer, correctAnswer, page }) => {
             <Info>
               <Title>{activeAnswer}</Title>
               <Text>{bird.species}</Text>
-              <Player></Player>
+              <Player
+                src={correctAnswerVoice.file}
+                duration={correctAnswerVoice.length}
+              ></Player>
             </Info>
           </Columns>
           <Text>{bird.description}</Text>
@@ -69,13 +72,14 @@ const Instruction = styled.p`
 const Image = styled.img`
   width: 200px;
   height: 155px;
+  margin: 0 auto;
   border-radius: 10px;
   object-fit: cover;
 `;
 
 const Text = styled.p`
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   padding: 0.25rem;
   font-size: 1rem;
   line-height: 22.5px;
@@ -84,9 +88,12 @@ const Text = styled.p`
 
 const Columns = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
   min-height: 173px;
+
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const Title = styled.h3`
@@ -99,8 +106,13 @@ const Title = styled.h3`
 `;
 
 const Info = styled.div`
+  text-align: center;
   h3,
   p {
     border-bottom: 1px solid #555;
+  }
+
+  @media (min-width: 768px) {
+    text-align: left;
   }
 `;

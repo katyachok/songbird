@@ -12,8 +12,7 @@ const NextLevelButton = ({ enableButton, setPage }) => {
 export { NextLevelButton };
 
 const Button = styled.div`
-  width: 100%;
-  margin: 25px 15px;
+  margin: 25px auto;
   padding: 6px 12px;
   text-align: center;
   color: #fff;
