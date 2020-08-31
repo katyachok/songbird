@@ -15,6 +15,7 @@ import {
   maxScorePerAnswer,
 } from "./constants";
 import { randomize } from "./utils/randomize";
+import Loader from "./assets/loader.gif";
 import "./styles/styles.css";
 import "./styles/sass.scss";
 
@@ -26,11 +27,13 @@ const App = () => {
   const [correctAnswerVoice, setCorrectAnswerVoice] = useState(null);
   const [correctAnswersList, setCorrectAnswersList] = useState([]);
   const [playAgain, setPlayAgain] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [score, setScore] = useState(0);
   const [tempScore, setTempScore] = useState(maxScorePerAnswer);
 
   useEffect(() => {
     if (currentPage !== Object.keys(birds).length) {
+      setIsLoading(true);
       getData();
       setTempScore(maxScorePerAnswer);
     } else {
@@ -64,6 +67,7 @@ const App = () => {
     }
     await fetchPhoto(answer);
     await fetchVoice(answer);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -87,6 +91,7 @@ const App = () => {
     <>
       <Header currentPage={pages[currentPage]} score={score}></Header>
       <main>
+        {isLoading && <img className="loader" src={Loader} alt="loader" />}
         {correctAnswer &&
           correctAnswerVoice &&
           currentPage < Object.keys(birds).length && (
