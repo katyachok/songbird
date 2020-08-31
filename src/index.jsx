@@ -6,7 +6,14 @@ import { AnswerVariants } from "./components/AnswerVariants";
 import { Description } from "./components/Description";
 import { NextLevelButton } from "./components/NextLevelButton";
 import { FinalPage } from "./components/FinalPage";
-import { flickrAPI, pages, VOICE_API, birds, PROXY_URL } from "./constants";
+import {
+  flickrAPI,
+  pages,
+  VOICE_API,
+  birds,
+  PROXY_URL,
+  maxScorePerAnswer,
+} from "./constants";
 import { randomize } from "./utils/randomize";
 import "./styles/styles.css";
 import "./styles/sass.scss";
@@ -20,15 +27,24 @@ const App = () => {
   const [correctAnswersList, setCorrectAnswersList] = useState([]);
   const [playAgain, setPlayAgain] = useState(false);
   const [score, setScore] = useState(0);
+  const [tempScore, setTempScore] = useState(maxScorePerAnswer);
 
   useEffect(() => {
     if (currentPage !== Object.keys(birds).length) {
       getData();
+      setTempScore(maxScorePerAnswer);
     } else {
       console.log("Correct answers: ", correctAnswersList);
     }
     if (playAgain) resetGame();
   }, [currentPage, playAgain]);
+
+  useEffect(() => {
+    if (!activeAnswer) return;
+    if (activeAnswer === correctAnswer.name) {
+      setScore((prevState) => prevState + tempScore);
+    } else setTempScore((prevState) => prevState - 1);
+  }, [activeAnswer]);
 
   const getData = async () => {
     const randomNumber = randomize(birds[currentPage].length);
@@ -60,6 +76,8 @@ const App = () => {
   };
 
   const resetGame = () => {
+    setScore(0);
+    setTempScore(maxScorePerAnswer);
     setCurrentPage(0);
     setActiveAnswer(null);
     setPlayAgain(false);
