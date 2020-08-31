@@ -18,23 +18,23 @@ const App = () => {
   const [correctAnswerPhoto, setCorrectAnswerPhoto] = useState(null);
   const [correctAnswerVoice, setCorrectAnswerVoice] = useState(null);
   const [correctAnswersList, setCorrectAnswersList] = useState([]);
-  const [isFinish, setIsFinish] = useState(false);
+  const [playAgain, setPlayAgain] = useState(false);
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    if (currentPage === Object.keys(birds).length) {
-      setIsFinish(true);
-      console.log("Correct answers: ", correctAnswersList);
-    } else {
+    if (currentPage !== Object.keys(birds).length) {
       getData();
+    } else {
+      console.log("Correct answers: ", correctAnswersList);
     }
-  }, [currentPage]);
+    if (playAgain) resetGame();
+  }, [currentPage, playAgain]);
 
   const getData = async () => {
     const randomNumber = randomize(birds[currentPage].length);
     const answer = birds[currentPage][randomNumber];
     setCorrectAnswer(answer);
-    setCorrectAnswersList([...correctAnswersList, answer]);
+    setCorrectAnswersList([...correctAnswersList, answer.name]);
     async function fetchPhoto({ name }) {
       const response = await fetch(`${flickrAPI}${name}`);
       const data = await response.json();
@@ -46,8 +46,8 @@ const App = () => {
       const data = await voiceResponse.json();
       setCorrectAnswerVoice(data.recordings[0]);
     }
-    fetchPhoto(answer);
-    fetchVoice(answer);
+    await fetchPhoto(answer);
+    await fetchVoice(answer);
   };
 
   useEffect(() => {
@@ -61,41 +61,48 @@ const App = () => {
 
   const resetGame = () => {
     setCurrentPage(0);
-    setIsFinish(false);
+    setActiveAnswer(null);
+    setPlayAgain(false);
   };
 
   return (
     <>
       <Header currentPage={pages[currentPage]} score={score}></Header>
       <main>
-        {correctAnswer && correctAnswerVoice && !isFinish && (
-          <>
-            <Question
-              activeAnswer={activeAnswer}
-              correctAnswer={correctAnswer.name}
-              correctAnswerVoice={correctAnswerVoice}
-              correctAnswerPhoto={correctAnswerPhoto}
-            ></Question>
-            <div className="content">
-              <AnswerVariants
-                currentPage={currentPage}
-                correctAnswer={correctAnswer.name}
-                setActiveAnswer={setActiveAnswer}
-              ></AnswerVariants>
-              <Description
-                page={currentPage}
+        {correctAnswer &&
+          correctAnswerVoice &&
+          currentPage < Object.keys(birds).length && (
+            <>
+              <Question
                 activeAnswer={activeAnswer}
+                correctAnswer={correctAnswer.name}
                 correctAnswerVoice={correctAnswerVoice}
-              ></Description>
-            </div>
-            <NextLevelButton
-              setPage={handleNextLevel}
-              enableButton={correctAnswer.name === activeAnswer}
-            ></NextLevelButton>
-          </>
-        )}
-        {isFinish && (
-          <FinalPage score={score} resetGame={resetGame}></FinalPage>
+                correctAnswerPhoto={correctAnswerPhoto}
+              ></Question>
+              <div className="content">
+                <AnswerVariants
+                  currentPage={currentPage}
+                  correctAnswer={correctAnswer.name}
+                  setActiveAnswer={setActiveAnswer}
+                ></AnswerVariants>
+                <Description
+                  page={currentPage}
+                  playAgain={playAgain}
+                  activeAnswer={activeAnswer}
+                  correctAnswerVoice={correctAnswerVoice}
+                ></Description>
+              </div>
+              <NextLevelButton
+                setPage={handleNextLevel}
+                enableButton={correctAnswer.name === activeAnswer}
+              ></NextLevelButton>
+            </>
+          )}
+        {currentPage >= Object.keys(birds).length && (
+          <FinalPage
+            score={score}
+            resetGame={() => setPlayAgain(true)}
+          ></FinalPage>
         )}
       </main>
     </>
