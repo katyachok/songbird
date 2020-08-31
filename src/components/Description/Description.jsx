@@ -14,7 +14,6 @@ const Description = ({ activeAnswer, correctAnswerVoice, page }) => {
       const data = await response.json();
       setPhoto(data.photos.photo[0]);
       const birdData = birds[page].filter(({ name }) => name === activeAnswer);
-      console.log(birdData);
       setBird(birdData.length && birdData[0]);
     }
     fetchData();

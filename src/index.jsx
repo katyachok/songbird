@@ -70,11 +70,6 @@ const App = () => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    console.log("birds[currentPage][randomNumber]", correctAnswer);
-    if (!correctAnswer) return;
-  }, [correctAnswer]);
-
   const handleNextLevel = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
