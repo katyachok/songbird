@@ -88,10 +88,6 @@ const plugins = () => {
     new MiniCssExtractPlugin({
       filename: filename({ ext: "css" }),
     }),
-    // env && env.analyze ? new BundleAnalyzerPlugin() : new NothingPlugin(),
-    // env && env.NODE_ENV === 'production'
-    //   ? MiniCssExtractPlugin({ chunkFilename: '[id].css', filename: '[name].css' })
-    //   : new NothingPlugin(),
   ];
   if (!isDev) {
     base.push(new BundleAnalyzerPlugin());
@@ -143,72 +139,10 @@ module.exports = {
   devtool: isDev ? "source-map" : "",
   devServer: {
     port: 8080,
-    //   contentBase: './dist',
     hot: isDev,
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.(js|jsx)$/,
-  //       loader: 'babel-loader',
-  //       exclude: /node_modules/,
-  //     },
-  //     {
-  //       enforce: 'pre',
-  //       test: /\.(js|jsx)$/,
-  //       exclude: /node_modules/,
-  //       loader: 'eslint-loader',
-  //     },
-  //     {
-  //       test: /\.(png|svg|jpg|gif)$/,
-  //       use: [
-  //         {
-  //           loader: 'url-loader',
-  //           options: {
-  //             limit: 8192,
-  //           },
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       test: /\.(woff|woff2|eot|ttf|otf)$/,
-  //       use: 'file-loader',
-  //     },
-  //     {
-  //       test: /\.(css|scss|sass)$/,
-  //       exclude: /\.module\.(css|scss|sass)$/,
-  //       use: [
-  //         env && env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-  //         {
-  //           loader: 'css-loader',
-  //           options: {
-  //             importLoaders: 1,
-  //           },
-  //         },
-  //         'postcss-loader',
-  //         'sass-loader',
-  //       ],
-  //     },
-  //     {
-  //       test: /\.module\.(css|scss|sass)$/,
-  //       use: [
-  //         env && env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-  //         {
-  //           loader: 'css-loader',
-  //           options: {
-  //             importLoaders: 1,
-  //             modules: true,
-  //           },
-  //         },
-  //         'sass-loader',
-  //       ],
-  //     },
-  //   ],
-  // },
   resolve: {
     extensions: [".js", ".jsx"],
   },
   plugins: plugins(),
 };
-
-// module.exports = (env) => config(env);
