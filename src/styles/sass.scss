@@ -1,0 +1,46 @@
+$base-color: #008966;
+$active-link: #00bc8c;
+$background: #222222;
+$blocks-background: #303030;
+
+body {
+  padding: 0 1rem;
+  background-color: $background;
+}
+
+main {
+  max-width: 720px;
+  margin: auto;
+}
+
+.content {
+  display: grid;
+  // grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  align-content: start;
+}
+
+.loader {
+  display: block;
+  margin: 2rem auto;
+  width: 100px;
+  height: 100px;
+}
+
+@media (min-width: 768px) {
+  .content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  main {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  main {
+    max-width: 1140px;
+  }
+}
